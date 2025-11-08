@@ -2,6 +2,9 @@ import { createRouter, RouterProvider } from '@tanstack/react-router';
 import './index.css';
 import { routeTree } from './routeTree.gen';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { Provider } from 'react-redux';
+import { PersistGate } from 'redux-persist/integration/react';
+import { store, persistor } from './store';
 // import { ThemeProvider } from './components/ThemeProvider';
 import { Toaster } from '@/components/ui/toaster';
 import { Toaster as Sonner } from '@/components/ui/sonner';
@@ -21,15 +24,19 @@ declare module '@tanstack/react-router' {
 
 function App() {
   return (
-    <QueryClientProvider client={queryClient}>
-      {/* <ThemeProvider defaultTheme="dark"> */}
-        <TooltipProvider>
-          <Toaster />
-          <Sonner />
-          <RouterProvider router={router} />
-        </TooltipProvider>
-      {/* </ThemeProvider> */}
-    </QueryClientProvider>
+    <Provider store={store}>
+      <PersistGate loading={null} persistor={persistor}>
+        <QueryClientProvider client={queryClient}>
+          {/* <ThemeProvider defaultTheme="dark"> */}
+            <TooltipProvider>
+              <Toaster />
+              <Sonner />
+              <RouterProvider router={router} />
+            </TooltipProvider>
+          {/* </ThemeProvider> */}
+        </QueryClientProvider>
+      </PersistGate>
+    </Provider>
   );
 }
 

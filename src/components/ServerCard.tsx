@@ -5,10 +5,10 @@ import { cn } from "@/lib/utils";
 interface ServerCardProps {
   name: string;
   description: string;
-  author: string;
-  stars: string;
-  status: "online" | "offline" | "restarting";
-  isEnabled: boolean;
+  by: string;
+  stargazer_count: number;
+  mcp: Record<string, any>;
+  isEnabled?: boolean;
   onToggle: () => void;
   view?: "grid" | "list";
   index?: number;
@@ -17,14 +17,21 @@ interface ServerCardProps {
 export default function ServerCard({
   name,
   description,
-  author,
-  stars,
-  status,
-  isEnabled,
+  by,
+  stargazer_count,
+  isEnabled = false,
   onToggle,
   view = "grid",
   index = 0,
 }: ServerCardProps) {
+  const formatStars = (count: number) => {
+    if (count >= 1000) {
+      return `${(count / 1000).toFixed(1)}k`;
+    }
+    return count.toString();
+  };
+
+  const status = isEnabled ? 'online' : 'offline';
   const animationDelay = `${index * 100}ms`;
   if (view === "list") {
     return (
@@ -60,10 +67,10 @@ export default function ServerCard({
               </span>
             </div>
             <div className="flex items-center gap-4 text-xs text-muted-foreground">
-              <span>By {author}</span>
+              <span>By {by}</span>
               <div className="flex items-center gap-1">
                 <Star className="h-3 w-3" />
-                <span>{stars}</span>
+                <span>{formatStars(stargazer_count)}</span>
               </div>
             </div>
             <div className="flex items-center gap-2">
@@ -118,10 +125,10 @@ export default function ServerCard({
       
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-4 text-xs text-muted-foreground">
-          <span>By {author}</span>
+          <span>By {by}</span>
           <div className="flex items-center gap-1">
             <Star className="h-3 w-3" />
-            <span>{stars}</span>
+            <span>{formatStars(stargazer_count)}</span>
           </div>
         </div>
         <div className="flex items-center gap-2">

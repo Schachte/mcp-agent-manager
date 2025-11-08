@@ -7,6 +7,11 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
+import { useActiveAgent } from '@/hooks/useActiveAgent';
+import { useAppDispatch, useAppSelector } from '@/store/hooks';
+import { setSortBy } from '@/store/slices/serverSlice';
+import { selectSortBy } from '@/store/selectors/serverSelectors';
+import { useEffect, useState } from 'react';
 
 interface HeaderProps {
   view: 'grid' | 'list';
@@ -14,28 +19,51 @@ interface HeaderProps {
 }
 
 export default function Header({ view, setView }: HeaderProps) {
+  const dispatch = useAppDispatch();
+  const activeAgent = useActiveAgent();
+  const reduxSortBy = useAppSelector(selectSortBy);
+  const [localSortBy, setLocalSortBy] = useState(reduxSortBy);
+
+  // Sync local state with Redux state
+  useEffect(() => {
+    setLocalSortBy(reduxSortBy);
+  }, [reduxSortBy]);
+
+  // Update Redux state when local state changes
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      dispatch(setSortBy(localSortBy));
+    }, 300);
+
+    return () => clearTimeout(timer);
+  }, [localSortBy, dispatch]);
+
+  const handleSortChange = (value: string) => {
+    setLocalSortBy(value);
+  };
+
   return (
     <header className="border-b border-border p-6">
       <div className="mb-6 flex items-start justify-between">
         <div>
           <h1 className="mb-2 text-3xl font-bold tracking-tight">
-            Cursor Servers
+            {activeAgent?.name || 'MCP'}
           </h1>
           <p className="text-sm text-muted-foreground">
-            Manage your local and remote server instances.
+            Manage your local MCP server configuration
           </p>
         </div>
         <div className="flex items-center gap-3">
           <div className="flex items-center gap-2 text-sm">
             <span className="text-muted-foreground">Sort by:</span>
-            <Select defaultValue="name">
+            <Select value={localSortBy} onValueChange={handleSortChange}>
               <SelectTrigger className="glass-card h-10 w-40 border-0">
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="name">Server Name</SelectItem>
-                <SelectItem value="status">Status</SelectItem>
+                <SelectItem value="name">Name</SelectItem>
                 <SelectItem value="stars">Stars</SelectItem>
+                <SelectItem value="status">Status</SelectItem>
               </SelectContent>
             </Select>
           </div>

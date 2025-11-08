@@ -5,6 +5,13 @@ export interface McpCommandResult {
   stderr: string;
 }
 
+export interface McpParsedResult<T = any> {
+  success: boolean;
+  data: T | null;
+  error: string | null;
+  raw: McpCommandResult;
+}
+
 export class McpRendererService {
   private static get mcpApi() {
     if (!window.mcpApi) {
@@ -28,11 +35,37 @@ export class McpRendererService {
   }
 
   /**
-   * Execute custom MCP CLI command
+   * Execute custom MCP CLI command and parse JSON result
    */
-  static async executeCommand(args: string[]): Promise<McpCommandResult> {
+  static async executeCommand(args: string[]): Promise<McpParsedResult> {
     try {
-      return await this.mcpApi.executeCommand(args);
+      const result = await this.mcpApi.executeCommand(args);
+      
+      if (result.code !== 0) {
+        return {
+          success: false,
+          data: null,
+          error: result.stderr || 'Command failed',
+          raw: result,
+        };
+      }
+
+      try {
+        const data = JSON.parse(result.stdout);
+        return {
+          success: true,
+          data,
+          error: null,
+          raw: result,
+        };
+      } catch (error) {
+        return {
+          success: false,
+          data: null,
+          error: `Failed to parse JSON: ${error instanceof Error ? error.message : 'Unknown error'}`,
+          raw: result,
+        };
+      }
     } catch (error) {
       console.error('Error executing MCP command:', error);
       throw error;
@@ -42,9 +75,9 @@ export class McpRendererService {
   /**
    * Get servers by agent using MCP CLI
    */
-  static async getServersByAgent(agent: string): Promise<McpCommandResult> {
+  static async getServersByAgent(agent: string): Promise<McpParsedResult> {
     try {
-      return await this.mcpApi.executeCommand(['list', '-a', agent, '-j']);
+      return await this.executeCommand(['list', '-a', agent, '-j']);
     } catch (error) {
       console.error('Error getting servers by agent:', error);
       throw error;
@@ -54,9 +87,9 @@ export class McpRendererService {
   /**
    * Get servers using MCP CLI
    */
-  static async getServers(): Promise<McpCommandResult> {
+  static async getServers(): Promise<McpParsedResult> {
     try {
-      return await this.mcpApi.executeCommand(['list', '-s']);
+      return await this.executeCommand(['list', '-s', '-j']);
     } catch (error) {
       console.error('Error getting servers:', error);
       throw error;
@@ -69,9 +102,9 @@ export class McpRendererService {
   static async removeServerByAgent(
     serverName: string,
     agent: string
-  ): Promise<McpCommandResult> {
+  ): Promise<McpParsedResult> {
     try {
-      return await this.mcpApi.executeCommand(['rm', serverName, '-a', agent, '-j']);
+      return await this.executeCommand(['rm', serverName, '-a', agent, '-j']);
     } catch (error) {
       console.error('Error removing server by agent:', error);
       throw error;
@@ -84,9 +117,9 @@ export class McpRendererService {
   static async addServerByAgent(
     agent: string,
     serverName: string
-  ): Promise<McpCommandResult> {
+  ): Promise<McpParsedResult> {
     try {
-      return await this.mcpApi.executeCommand([
+      return await this.executeCommand([
         'init',
         '-a',
         agent,
@@ -103,9 +136,9 @@ export class McpRendererService {
   /**
    * Get agents using MCP CLI
    */
-  static async getAgents(): Promise<McpCommandResult> {
+  static async getAgents(): Promise<McpParsedResult> {
     try {
-      return await this.mcpApi.executeCommand(['check', '-j']);
+      return await this.executeCommand(['check', '-j']);
     } catch (error) {
       console.error('Error getting agents:', error);
       throw error;
@@ -113,11 +146,11 @@ export class McpRendererService {
   }
 }
 
-// Direct exports for convenience
-export const isInstalled = McpRendererService.isInstalled;
-export const executeCommand = McpRendererService.executeCommand;
-export const getServersByAgent = McpRendererService.getServersByAgent;
-export const getServers = McpRendererService.getServers;
-export const removeServerByAgent = McpRendererService.removeServerByAgent;
-export const addServerByAgent = McpRendererService.addServerByAgent;
-export const getAgents = McpRendererService.getAgents;
+// // Direct exports for convenience
+// export const isInstalled = McpRendererService.isInstalled;
+// export const executeCommand = McpRendererService.executeCommand;
+// export const getServersByAgent = McpRendererService.getServersByAgent;
+// export const getServers = McpRendererService.getServers;
+// export const removeServerByAgent = McpRendererService.removeServerByAgent;
+// export const addServerByAgent = McpRendererService.addServerByAgent;
+// export const getAgents = McpRendererService.getAgents;
