@@ -17,7 +17,6 @@ const config: ForgeConfig = {
     new MakerSquirrel({
       name: 'mcp-gearbox',
       setupExe: 'mcp-gearbox-setup.exe',
-      setupIcon: './assets/icon.ico',
     }),
     new MakerZIP({}, ['darwin']),
     new MakerRpm({
