@@ -2,6 +2,10 @@
 
 > A modern desktop application for managing Model Context Protocol (MCP) servers across multiple AI agents
 
+## 📸 Screenshot
+
+![Electron + shadcn/ui Template](media/mcp-gearbox.png)
+
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Electron](https://img.shields.io/badge/Electron-39.0.0-47848F?logo=electron)](https://www.electronjs.org/)
 [![React](https://img.shields.io/badge/React-19.2.0-61DAFB?logo=react)](https://reactjs.org/)
