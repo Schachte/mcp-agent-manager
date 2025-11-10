@@ -4,7 +4,7 @@
 
 ## 📸 Screenshot
 
-![Electron + shadcn/ui Template](media/mcp-gearbox.png)
+![MCP Gearbox](media/mcp-gearbox.png)
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Electron](https://img.shields.io/badge/Electron-39.0.0-47848F?logo=electron)](https://www.electronjs.org/)
