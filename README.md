@@ -37,10 +37,15 @@ Managing MCP servers manually can be tedious and error-prone. MCP Gearbox elimin
 
 ## Installation
 
-### Prerequisites
+## 🔧 Requirements
 
-- Node.js 18 or higher
-- npm or yarn package manager
+- **Node.js 18 or higher**
+- **npm package manager**
+- **Linux/macOS/Windows**
+- [uv](https://docs.astral.sh/uv/) for package management
+- [Python 3.11+](https://www.python.org/downloads/)
+- [Git](https://git-scm.com/downloads)
+  
 
 ### Download
 
