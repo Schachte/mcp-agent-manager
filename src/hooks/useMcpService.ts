@@ -64,10 +64,8 @@ export const useMcpService = () => {
         showErrorToast(errorTitle, result.error || errorTitle);
         return null;
       }
-      // if (successMessage) {
-      //   showSuccessToast(successMessage.title, successMessage.description);
-      // }
-      return result.data as T;
+      
+      return { ...result.data as T,  successMessage};
     } catch (err) {
       handleError(err, errorTitle);
       return null;
@@ -113,7 +111,7 @@ export const useMcpService = () => {
     }
   };
 
-  const checkInstallation = async (version: string | null) => {
+  const checkInstallation = async () => {
     setIsLoading(true);
     setError(null);
     try {
@@ -236,7 +234,7 @@ export const useMcpService = () => {
   };
 
   useEffect(() => {
-    checkInstallation(version);
+    checkInstallation();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [version]);
 
