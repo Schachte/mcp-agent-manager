@@ -10,3 +10,6 @@ interface Menu {
 export const menus: Menu[] = [
   { id: 'home', name: 'Home', icon: Grid3x3, isActive: true },
 ];
+
+
+export const CLI_VERSION = '0.0.13';

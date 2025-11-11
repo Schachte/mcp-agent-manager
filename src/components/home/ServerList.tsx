@@ -119,7 +119,7 @@ export default function ServerList({ view }: ServerListProps) {
           className={cn(
             'gap-4',
             view === 'grid'
-              ? 'grid grid-cols-1 lg:grid-cols-2'
+              ? 'grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3'
               : 'flex flex-col'
           )}
         >
