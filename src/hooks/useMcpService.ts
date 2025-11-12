@@ -48,7 +48,7 @@ export const useMcpService = () => {
   const executeWithInstallCheck = async <T>(
     operation: () => Promise<McpParsedResult>,
     errorTitle: string,
-    successMessage?: { title: string; description: string }
+    _successMessage?: { title: string; description: string }
   ): Promise<T | null> => {
     if (!isInstalled) {
       showNotInstalledToast();
@@ -65,7 +65,7 @@ export const useMcpService = () => {
         return null;
       }
       
-      return { ...result.data as T,  successMessage};
+      return result.data as T;
     } catch (err) {
       handleError(err, errorTitle);
       return null;
@@ -145,8 +145,6 @@ export const useMcpService = () => {
           if (!installSuccess) {
             setError('MCP CLI is not installed. Please install it manually.');
           }
-        } else {
-          setError('MCP CLI is not installed. Please install it first.');
         }
       }
     } catch (err) {

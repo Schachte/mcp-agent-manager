@@ -13,3 +13,7 @@ export const menus: Menu[] = [
 
 
 export const CLI_VERSION = '0.0.13';
+
+export const ONE_DAY_MS = 24 * 60 * 60 * 1000;
+
+export const ONE_HOUR_MS = 1 * 60 * 60 * 1000;

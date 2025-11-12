@@ -5,12 +5,12 @@ import { useEffect, useEffectEvent } from 'react';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import { setAgents, setActiveAgent } from '@/store/slices/agentSlice';
 import { sortAgents } from '@/utils/commonFunctions';
+import { ONE_HOUR_MS } from '@/utils/constants';
 
 interface AgentPanelProps {
   isOpen: boolean;
 }
 
-const ONE_DAY_MS = 24 * 60 * 60 * 1000;
 
 export default function AgentPanel({ isOpen }: AgentPanelProps) {
   const dispatch = useAppDispatch();
@@ -48,7 +48,7 @@ export default function AgentPanel({ isOpen }: AgentPanelProps) {
   useEffect(() => {
     if (isInstalled) {
       const now = Date.now();
-      const isStale = !lastFetched || now - lastFetched > ONE_DAY_MS;
+      const isStale = !lastFetched || now - lastFetched > ONE_HOUR_MS;
 
       // Only fetch if data is stale or doesn't exist
       if (isStale) {

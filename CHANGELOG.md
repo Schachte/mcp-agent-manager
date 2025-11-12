@@ -17,6 +17,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Fix sequential-thinking install failed issue
 - overall ui improvements
 - remove mcp start stop toast
+- reduce caching time to 1 hour (from 24 hours)
 
 
 ## [0.0.1] - 2024-11-09
