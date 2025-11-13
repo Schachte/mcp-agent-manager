@@ -1,7 +1,7 @@
 import { AlertCircle, Sparkles } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { useMcpService } from '@/hooks/useMcpService';
-import { useEffect, useEffectEvent, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import { setAgents, setActiveAgent } from '@/store/slices/agentSlice';
 import { sortAgents } from '@/utils/commonFunctions';
@@ -23,26 +23,29 @@ export default function AgentPanel({ isOpen }: AgentPanelProps) {
   const lastFetched = useAppSelector(state => state.agent.lastFetched);
   const { isInstalled, error, getAgents } = useMcpService();
 
-  const getAgentsData = useEffectEvent(async () => {
-    const fetchedAgents = await getAgents(false); // Don't show toast on initial load
-    if (fetchedAgents) {
-      const sortedAgents = sortAgents(fetchedAgents);
+  const getAgentsData = useCallback(async () => {
+    try {
+      const fetchedAgents = await getAgents(false); // Don't show toast on initial load
+      if (fetchedAgents) {
+        const sortedAgents = sortAgents(fetchedAgents);
 
-      await dispatch(setAgents(sortedAgents));
+        await dispatch(setAgents(sortedAgents));
 
-      // Set first agent as active if none selected
-      if (!activeAgentId && sortedAgents.length > 0) {
-        await dispatch(setActiveAgent(sortedAgents[0].agent));
+        // Set first agent as active if none selected
+        if (!activeAgentId && sortedAgents.length > 0) {
+          await dispatch(setActiveAgent(sortedAgents[0].agent));
+        }
       }
+    } catch (error) {
+      console.error('Error fetching agents:', error);
+    } finally {
+      // Always set initial loading to false after attempting to fetch
+      setIsInitialLoading(false);
     }
-
-    // Set initial loading to false after first fetch
-    setIsInitialLoading(false);
-  });
+  }, [getAgents, dispatch, activeAgentId]);
 
   useEffect(() => {
     if (isInstalled) {
-      setIsInitialLoading(true);
       const now = Date.now();
       const isStale = !lastFetched || now - lastFetched > ONE_HOUR_MS;
 
@@ -53,11 +56,14 @@ export default function AgentPanel({ isOpen }: AgentPanelProps) {
         // Set first agent as active if none selected and we have cached data
         dispatch(setActiveAgent(agents[0].agent));
         setIsInitialLoading(false);
+      } else {
+        // Ensure loading is stopped in all other cases
+        setIsInitialLoading(false);
       }
     } else {
       setIsInitialLoading(false);
     }
-  }, [isInstalled, lastFetched, activeAgentId, agents, dispatch]);
+  }, [isInstalled, lastFetched, activeAgentId, agents, dispatch, getAgentsData]);
 
   return (
     <aside
