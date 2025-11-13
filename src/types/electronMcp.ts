@@ -10,6 +10,11 @@ export interface McpIpcApi {
     stderr?: string;
     error?: string;
   }>;
+  selectProjectLocation: () => Promise<{
+    success: boolean;
+    path?: string;
+    error?: string;
+  }>;
 }
 
 declare global {

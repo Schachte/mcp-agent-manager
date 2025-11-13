@@ -95,9 +95,16 @@ export class McpRendererService {
   /**
    * Get servers by agent using MCP CLI
    */
-  static async getServersByAgent(agent: string): Promise<McpParsedResult> {
+  static async getServersByAgent(
+    agent: string,
+    projectLocation?: string
+  ): Promise<McpParsedResult> {
     try {
-      return await this.executeCommand(['list', '-a', agent, '-j']);
+      const args = ['list', '-a', agent, '-j'];
+      if (projectLocation) {
+        args.push('-p', projectLocation);
+      }
+      return await this.executeCommand(args);
     } catch (error) {
       console.error('Error getting servers by agent:', error);
       throw error;
@@ -121,10 +128,15 @@ export class McpRendererService {
    */
   static async removeServerByAgent(
     serverName: string,
-    agent: string
+    agent: string,
+    projectLocation?: string
   ): Promise<McpParsedResult> {
     try {
-      return await this.executeCommand(['rm', serverName, '-a', agent, '-j']);
+      const args = ['rm', serverName, '-a', agent, '-j'];
+      if (projectLocation) {
+        args.push('-p', projectLocation);
+      }
+      return await this.executeCommand(args);
     } catch (error) {
       console.error('Error removing server by agent:', error);
       throw error;
@@ -136,17 +148,23 @@ export class McpRendererService {
    */
   static async addServerByAgent(
     agent: string,
-    serverName: string
+    serverName: string,
+    projectLocation?: string
   ): Promise<McpParsedResult> {
     try {
-      return await this.executeCommand([
-        'init',
-        '-a',
-        agent,
-        '-s',
-        serverName,
-        '--json',
-      ]);
+      let args = ['init', '-a', agent, '-s', serverName, '--json'];
+      if (projectLocation) {
+        args = [
+          'init',
+          projectLocation,
+          '-a',
+          agent,
+          '-s',
+          serverName,
+          '--json',
+        ];
+      }
+      return await this.executeCommand(args);
     } catch (error) {
       console.error('Error adding server by agent:', error);
       throw error;
@@ -172,16 +190,14 @@ export class McpRendererService {
     try {
       const result = await this.mcpApi.executeCommand(['-v']);
       return {
-          success: true,
-          data: result.stdout,
-          error: null,
-          raw: result,
-        };
+        success: true,
+        data: result.stdout,
+        error: null,
+        raw: result,
+      };
     } catch (error) {
       console.error('Error getting version:', error);
       throw error;
     }
   }
-
-  
 }

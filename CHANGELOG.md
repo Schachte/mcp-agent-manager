@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.0.3] - 2024-11-13
+
+- Project Level Configuration Support
+- Light theme and Dark theme Toggle
+- Agent icons
+- skeleton loading in agent & server
+- Add Arch Linux AUR packaging (contributed by [@Logic-H](https://github.com/Logic-H))
+
 ## [0.0.2] - 2024-11-12
 - Copilot CLI Support
 - Disable non installed ai agent & ui
@@ -19,6 +27,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - remove mcp start stop toast
 - reduce caching time to 2 minutes for regular update (from 24 hours)
 - improve ui performance
+- Fix MCP CLI toast on startup
 
 
 ## [0.0.1] - 2024-11-09

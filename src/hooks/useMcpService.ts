@@ -9,8 +9,9 @@ import { AgentData, AgentServer, ServerData } from '@/types/mcp';
 import { CLI_VERSION } from '@/utils/constants';
 
 export const useMcpService = () => {
-  const [isInstalled, setIsInstalled] = useState(false);
-  const [version, setVersion] = useState<string | null>(null);
+  const [isInstalled, setIsInstalled] = useState(
+    sessionStorage.getItem('mcp-installed') === 'true' || false
+  );
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [isInstalling, setIsInstalling] = useState(false);
@@ -67,7 +68,7 @@ export const useMcpService = () => {
         showErrorToast(errorTitle, result.error || errorTitle);
         return null;
       }
-      
+
       return result.data as T;
     } catch (err) {
       handleError(err, errorTitle);
@@ -118,8 +119,14 @@ export const useMcpService = () => {
     setIsLoading(true);
     setError(null);
     try {
-      const installed = await McpRendererService.isInstalled();
-      setIsInstalled(installed);
+      let installed = false;
+      if (!isInstalled) {
+        installed = await McpRendererService.isInstalled();
+        setIsInstalled(installed);
+        sessionStorage.setItem('mcp-installed', installed ? 'true' : 'false');
+      } else {
+        installed = isInstalled;
+      }
 
       // If CLI is installed, check version
       if (installed) {
@@ -138,7 +145,7 @@ export const useMcpService = () => {
             }
           }
         }
-      } 
+      }
       // Auto-install on first run if not installed
       else {
         const installAttempted = localStorage.getItem('mcp-install-attempted');
@@ -181,7 +188,9 @@ export const useMcpService = () => {
     return result?.agents || [];
   };
 
-  const getServers = async (showToast: boolean = true): Promise<ServerData[] | null> => {
+  const getServers = async (
+    showToast: boolean = true
+  ): Promise<ServerData[] | null> => {
     return executeWithInstallCheck<ServerData[]>(
       () => McpRendererService.getServers(),
       'Failed to get servers',
@@ -192,10 +201,11 @@ export const useMcpService = () => {
 
   const getServersByAgent = async (
     agent: string,
+    projectLocation: string | undefined = undefined,
     showToast: boolean = true
   ): Promise<AgentServer[] | null> => {
     const result = await executeWithInstallCheck<{ servers: AgentServer[] }>(
-      () => McpRendererService.getServersByAgent(agent),
+      () => McpRendererService.getServersByAgent(agent, projectLocation),
       'Failed to get servers by agent',
       undefined,
       showToast
@@ -206,10 +216,12 @@ export const useMcpService = () => {
   const addServerByAgent = async (
     agent: string,
     serverName: string,
+    projectLocation?: string,
     showToast: boolean = true
   ): Promise<unknown> => {
     return executeWithInstallCheck<unknown>(
-      () => McpRendererService.addServerByAgent(agent, serverName),
+      () =>
+        McpRendererService.addServerByAgent(agent, serverName, projectLocation),
       'Failed to add server',
       {
         title: 'Server added',
@@ -222,10 +234,16 @@ export const useMcpService = () => {
   const removeServerByAgent = async (
     serverName: string,
     agent: string,
+    projectLocation?: string,
     showToast: boolean = true
   ): Promise<unknown> => {
     return executeWithInstallCheck<unknown>(
-      () => McpRendererService.removeServerByAgent(serverName, agent),
+      () =>
+        McpRendererService.removeServerByAgent(
+          serverName,
+          agent,
+          projectLocation
+        ),
       'Failed to remove server',
       {
         title: 'Server removed',
@@ -235,29 +253,10 @@ export const useMcpService = () => {
     );
   };
 
-  const getVersion = async (showToast: boolean = true): Promise<unknown> => {
-    const result = await executeWithInstallCheck<unknown>(
-      () => McpRendererService.getVersion(),
-      'Failed to get version',
-      {
-        title: 'Server version',
-        description: 'Successfully got the version',
-      },
-      showToast
-    );
-    setVersion(result as string | null)
-    return result;
-  };
-
   useEffect(() => {
     checkInstallation(false); // Don't show toast on initial check
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [version]);
-
-  useEffect(() => {
-    getVersion(false); // Don't show toast on initial version check
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isInstalled]);
+  }, []);
 
   return {
     isInstalled,

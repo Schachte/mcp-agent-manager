@@ -29,3 +29,11 @@ export interface ServerData {
   by: string;
   isEnabled?: boolean;
 }
+
+// Theme provider props
+export interface ThemeProviderProps {
+  children: React.ReactNode;
+  defaultTheme?: string;
+  storageKey?: string;
+  themes?: string[];
+}

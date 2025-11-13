@@ -11,7 +11,6 @@ export const menus: Menu[] = [
   { id: 'home', name: 'Home', icon: Grid3x3, isActive: true },
 ];
 
-
 export const CLI_VERSION = '0.0.13';
 
 export const ONE_DAY_MS = 24 * 60 * 60 * 1000;
