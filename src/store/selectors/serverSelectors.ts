@@ -16,3 +16,9 @@ export const selectEnabledServers = (state: RootState) =>
 
 export const selectServerByName = (name: string) => (state: RootState) =>
   state.server.servers.find(server => server.name === name);
+
+export const selectIsProjectLevelSpecEnabled = (state: RootState) =>
+  state.server.isProjectLevelSpecEnabled;
+
+export const selectProjectLocation = (state: RootState) =>
+  state.server.projectLocation;

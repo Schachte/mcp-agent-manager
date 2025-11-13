@@ -1,5 +1,6 @@
 import SearchBar from '@/components/SearchBar';
 import ViewToggle from '@/components/ViewToggle';
+import { ThemeToggle } from '@/components/ThemeToggle';
 import {
   Select,
   SelectContent,
@@ -47,7 +48,7 @@ export default function Header({ view, setView }: HeaderProps) {
   };
 
   return (
-    <header className="border-b border-border p-6">
+    <header className="border-b border-border p-6 pb-2">
       <div className="mb-6 flex items-start justify-between">
         <div>
           <h1 className="mb-2 text-3xl font-bold tracking-tight">
@@ -91,6 +92,7 @@ export default function Header({ view, setView }: HeaderProps) {
             </Select>
           </div>
           <ViewToggle view={view} onViewChange={setView} />
+          <ThemeToggle />
         </div>
       </div>
       <SearchBar />

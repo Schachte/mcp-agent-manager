@@ -16,6 +16,8 @@ interface ServerState {
   searchQuery: string;
   sortBy: string;
   lastFetched: number | null;
+  isProjectLevelSpecEnabled: boolean;
+  projectLocation: string;
 }
 
 const initialState: ServerState = {
@@ -25,6 +27,8 @@ const initialState: ServerState = {
   searchQuery: '',
   sortBy: 'stars',
   lastFetched: null,
+  isProjectLevelSpecEnabled: false,
+  projectLocation: '',
 };
 
 const serverSlice = createSlice({
@@ -70,6 +74,12 @@ const serverSlice = createSlice({
     setSortBy: (state, action: PayloadAction<string>) => {
       state.sortBy = action.payload;
     },
+    setProjectLevelSpecEnabled: (state, action: PayloadAction<boolean>) => {
+      state.isProjectLevelSpecEnabled = action.payload;
+    },
+    setProjectLocation: (state, action: PayloadAction<string>) => {
+      state.projectLocation = action.payload;
+    },
   },
 });
 
@@ -83,6 +93,8 @@ export const {
   removeServer,
   setSearchQuery,
   setSortBy,
+  setProjectLevelSpecEnabled,
+  setProjectLocation,
 } = serverSlice.actions;
 
 export default serverSlice.reducer;

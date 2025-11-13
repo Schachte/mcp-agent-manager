@@ -1,52 +1,48 @@
-import { Loader2, AlertCircle, Sparkles } from 'lucide-react';
+import { AlertCircle, Sparkles } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { useMcpService } from '@/hooks/useMcpService';
-import { useEffect, useEffectEvent } from 'react';
+import { useEffect, useEffectEvent, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import { setAgents, setActiveAgent } from '@/store/slices/agentSlice';
 import { sortAgents } from '@/utils/commonFunctions';
 import { ONE_HOUR_MS } from '@/utils/constants';
+import Agent from './Agent';
+import { Skeleton } from '@/components/ui/skeleton';
 
 interface AgentPanelProps {
   isOpen: boolean;
 }
 
-
 export default function AgentPanel({ isOpen }: AgentPanelProps) {
   const dispatch = useAppDispatch();
+  const [isInitialLoading, setIsInitialLoading] = useState(true);
   const agents = useAppSelector(state => {
     return state.agent.agents;
   });
   const activeAgentId = useAppSelector(state => state.agent.activeAgentId);
   const lastFetched = useAppSelector(state => state.agent.lastFetched);
-  const { isInstalled, isLoading, error, getAgents } = useMcpService();
+  const { isInstalled, error, getAgents } = useMcpService();
 
   const getAgentsData = useEffectEvent(async () => {
     const fetchedAgents = await getAgents(false); // Don't show toast on initial load
     if (fetchedAgents) {
       const sortedAgents = sortAgents(fetchedAgents);
 
-      dispatch(setAgents(sortedAgents));
+      await dispatch(setAgents(sortedAgents));
 
       // Set first agent as active if none selected
       if (!activeAgentId && sortedAgents.length > 0) {
-        dispatch(setActiveAgent(sortedAgents[0].agent));
+        await dispatch(setActiveAgent(sortedAgents[0].agent));
       }
     }
+
+    // Set initial loading to false after first fetch
+    setIsInitialLoading(false);
   });
-
-  const handleSelectAgent = (agentId: string) => {
-    dispatch(setActiveAgent(agentId));
-  };
-
-  // Compute agents with active flag
-  const agentsWithActive = agents.map(agent => ({
-    ...agent,
-    active: agent.agent === activeAgentId,
-  }));
 
   useEffect(() => {
     if (isInstalled) {
+      setIsInitialLoading(true);
       const now = Date.now();
       const isStale = !lastFetched || now - lastFetched > ONE_HOUR_MS;
 
@@ -56,16 +52,12 @@ export default function AgentPanel({ isOpen }: AgentPanelProps) {
       } else if (!activeAgentId && agents.length > 0) {
         // Set first agent as active if none selected and we have cached data
         dispatch(setActiveAgent(agents[0].agent));
+        setIsInitialLoading(false);
       }
+    } else {
+      setIsInitialLoading(false);
     }
-  }, [
-    isInstalled,
-    lastFetched,
-    activeAgentId,
-    agents,
-    dispatch,
-    getAgentsData,
-  ]);
+  }, [isInstalled, lastFetched, activeAgentId, agents, dispatch]);
 
   return (
     <aside
@@ -95,9 +87,11 @@ export default function AgentPanel({ isOpen }: AgentPanelProps) {
             </p>
           </div>
         )}
-        {isInstalled && isLoading && agents.length === 0 && (
-          <div className="flex items-center justify-center py-8">
-            <Loader2 className="h-6 w-6 animate-spin text-muted-foreground" />
+        {isInstalled && isInitialLoading && (
+          <div className="space-y-2">
+            {[...Array(9)].map((_, i) => (
+              <Skeleton key={i} className="h-12 w-full rounded-lg" />
+            ))}
           </div>
         )}
         {isInstalled && error && agents.length === 0 && (
@@ -105,33 +99,14 @@ export default function AgentPanel({ isOpen }: AgentPanelProps) {
             Failed to load agents
           </div>
         )}
-        {isInstalled && !isLoading && !error && agents.length === 0 && (
+        {isInstalled && !isInitialLoading && !error && agents.length === 0 && (
           <div className="py-8 text-center text-sm text-muted-foreground">
             No agents found
           </div>
         )}
-        {agentsWithActive.map(agent => (
-          <button
-            key={agent.agent}
-            onClick={() => agent.installed && handleSelectAgent(agent.agent)}
-            disabled={!agent.installed}
-            className={cn(
-              'flex items-center gap-3 rounded-xl px-4 py-3 text-left transition-all',
-              agent.installed 
-                ? agent.active
-                  ? 'bg-primary/20 text-foreground'
-                  : 'text-muted-foreground hover:bg-sidebar-accent hover:text-foreground'
-                : 'text-muted-foreground/50',
-              agent.active && agent.installed && 'bg-primary/20 text-foreground'
-            )}
-          >
-            {/* <span className="text-2xl">{agent.icon}</span> */}
-            <span className="flex-1 text-sm font-medium">{agent.name}</span>
-            {agent.installed && (
-              <span className="status-dot bg-status-online" />
-            )}
-          </button>
-        ))}
+        {isInstalled &&
+          !isInitialLoading &&
+          agents.map(agent => <Agent key={agent.agent} agent={agent} />)}
       </div>
     </aside>
   );

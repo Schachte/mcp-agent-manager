@@ -13,22 +13,26 @@ const createWindow = () => {
   const mainWindow = new BrowserWindow({
     width: 1200,
     height: 800,
-    ...(process.platform === 'darwin' ? {
-      frame: true
-    } : {
-      frame: false
-    }),
-    titleBarStyle: "hidden", // hides title bar but keeps shadow and window controls space
-    autoHideMenuBar: true,  // hides menu bar (like VS Code)
+    ...(process.platform === 'darwin'
+      ? {
+          frame: true,
+        }
+      : {
+          frame: false,
+        }),
+    titleBarStyle: 'hidden', // hides title bar but keeps shadow and window controls space
+    autoHideMenuBar: true, // hides menu bar (like VS Code)
     // expose window controls in Windows/Linux
     // ...(process.platform !== 'darwin' ? { titleBarOverlay: true } : {}),
-    ...(process.platform !== 'darwin' ? {
-      titleBarOverlay: {
-        color: '#293f3f',
-        symbolColor: '#cee4e8',
-        height: 30
-    },
-    } : {}),
+    ...(process.platform !== 'darwin'
+      ? {
+          titleBarOverlay: {
+            color: '#293f3f',
+            symbolColor: '#cee4e8',
+            height: 30,
+          },
+        }
+      : {}),
     webPreferences: {
       preload: path.join(__dirname, 'preload.js'),
       contextIsolation: true,
@@ -55,15 +59,18 @@ const createWindow = () => {
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
 app.on('ready', () => {
+  console.log('App is ready, creating window and setting up IPC handlers...');
   createWindow();
   // Setup MCP IPC handlers
   ElectronMcpService.setupIpcHandlers();
+  console.log('Window created and IPC handlers setup complete');
 });
 
 // Quit when all windows are closed, except on macOS. There, it's common
 // for applications and their menu bar to stay active until the user quits
 // explicitly with Cmd + Q.
 app.on('window-all-closed', () => {
+  console.log('All windows closed, cleaning up IPC handlers...');
   // Clean up IPC handlers
   ElectronMcpService.removeIpcHandlers();
   if (process.platform !== 'darwin') {
@@ -75,6 +82,7 @@ app.on('activate', () => {
   // On OS X it's common to re-create a window in the app when the
   // dock icon is clicked and there are no other windows open.
   if (BrowserWindow.getAllWindows().length === 0) {
+    console.log('No windows open, creating new window...');
     createWindow();
   }
 });

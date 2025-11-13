@@ -5,15 +5,24 @@ import { cn } from '@/lib/utils';
 import { ServerData } from '@/types/mcp';
 import { useActiveAgent } from '@/hooks/useActiveAgent';
 import { toggleServer } from '@/store/slices/serverSlice';
-import { useAppDispatch } from '@/store/hooks';
+import { useAppDispatch, useAppSelector } from '@/store/hooks';
 import { formatStars } from '@/utils/commonFunctions';
+import { selectProjectLocation } from '@/store/selectors/serverSelectors';
 
 type ServerCardProps = {
   server: ServerData;
   view: 'grid' | 'list';
   index: number;
-  addServerByAgent: (agent: string, serverName: string) => Promise<unknown>;
-  removeServerByAgent: (serverName: string, agent: string) => Promise<unknown>;
+  addServerByAgent: (
+    agent: string,
+    serverName: string,
+    projectLocation?: string
+  ) => Promise<unknown>;
+  removeServerByAgent: (
+    serverName: string,
+    agent: string,
+    projectLocation?: string
+  ) => Promise<unknown>;
 };
 
 export default function ServerCard({
@@ -28,6 +37,7 @@ export default function ServerCard({
 
   const activeAgent = useActiveAgent();
   const dispatch = useAppDispatch();
+  const projectLocation = useAppSelector(selectProjectLocation);
 
   const onToggle = async () => {
     if (isToggling) return;
@@ -35,9 +45,17 @@ export default function ServerCard({
     setIsToggling(true);
     try {
       if (isEnabled) {
-        await removeServerByAgent(name.toLowerCase(), activeAgent?.agent || '');
+        await removeServerByAgent(
+          name.toLowerCase(),
+          activeAgent?.agent || '',
+          projectLocation
+        );
       } else {
-        await addServerByAgent(activeAgent?.agent || '', name.toLowerCase());
+        await addServerByAgent(
+          activeAgent?.agent || '',
+          name.toLowerCase(),
+          projectLocation
+        );
       }
       dispatch(toggleServer(name));
     } finally {
@@ -45,7 +63,13 @@ export default function ServerCard({
     }
   };
 
-  const status = isToggling ? (isEnabled ? 'stopping' : 'starting') : isEnabled ? 'online' : 'offline';
+  const status = isToggling
+    ? isEnabled
+      ? 'stopping'
+      : 'starting'
+    : isEnabled
+      ? 'online'
+      : 'offline';
   const animationDelay = `${index * 100}ms`;
 
   if (view === 'list') {
@@ -71,7 +95,8 @@ export default function ServerCard({
                   'status-dot',
                   status === 'online' && 'bg-status-online',
                   status === 'offline' && 'bg-status-offline',
-                  (status === 'starting' || status === 'stopping') && 'bg-status-restarting'
+                  (status === 'starting' || status === 'stopping') &&
+                    'bg-status-restarting'
                 )}
               />
               <span
@@ -79,7 +104,8 @@ export default function ServerCard({
                   'text-xs font-medium capitalize',
                   status === 'online' && 'text-status-online',
                   status === 'offline' && 'text-status-offline',
-                  (status === 'starting' || status === 'stopping') && 'text-status-restarting'
+                  (status === 'starting' || status === 'stopping') &&
+                    'text-status-restarting'
                 )}
               >
                 {status}
@@ -129,7 +155,8 @@ export default function ServerCard({
                 'status-dot',
                 status === 'online' && 'bg-status-online',
                 status === 'offline' && 'bg-status-offline',
-                (status === 'starting' || status === 'stopping') && 'bg-status-restarting'
+                (status === 'starting' || status === 'stopping') &&
+                  'bg-status-restarting'
               )}
             />
             <span
@@ -137,7 +164,8 @@ export default function ServerCard({
                 'text-xs font-medium capitalize',
                 status === 'online' && 'text-status-online',
                 status === 'offline' && 'text-status-offline',
-                (status === 'starting' || status === 'stopping') && 'text-status-restarting'
+                (status === 'starting' || status === 'stopping') &&
+                  'text-status-restarting'
               )}
             >
               {status}

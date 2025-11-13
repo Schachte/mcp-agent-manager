@@ -9,6 +9,8 @@ const mcpApi: McpIpcApi = {
   executeCommand: (args: string[]) =>
     ipcRenderer.invoke('mcp:execute-command', args),
   installCli: () => ipcRenderer.invoke('mcp:install-cli'),
+  selectProjectLocation: () =>
+    ipcRenderer.invoke('mcp:select-project-location'),
 };
 
 contextBridge.exposeInMainWorld('mcpApi', mcpApi);
