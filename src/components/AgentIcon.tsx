@@ -7,6 +7,7 @@ import type { Agent } from '@/store/slices/agentSlice';
 
 // Import icons as modules to ensure they're handled by Vite
 import geminiIcon from '/icons/gemini.png';
+import antigravityIcon from '/icons/antigravity.png';
 import cursorIcon from '/icons/cursor.png';
 import qoderIcon from '/icons/qoder.png';
 import lmstudioIcon from '/icons/lmstudio.webp';
@@ -35,6 +36,8 @@ export default function AgentIcon({ agent, className }: AgentIconProps) {
       return <CopilotCLI />;
     case 'copilot':
       return <Copilot />;
+    case 'antigravity':
+      return <img src={antigravityIcon} alt={agent.name} className={ImgClass} />;
     case 'gemini':
       return <img src={geminiIcon} alt={agent.name} className={ImgClass} />;
     case 'cursor':
