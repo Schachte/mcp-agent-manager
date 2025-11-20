@@ -57,9 +57,6 @@ export default function Header({ view, setView }: HeaderProps) {
             <h1 className="text-3xl font-bold tracking-tight">
               {activeAgent?.name || 'MCP'}
             </h1>
-            <span className="text-sm text-muted-foreground">
-              Manage your local MCP server configuration
-            </span>
           </div>
         </div>
         <div className="flex items-center gap-3">

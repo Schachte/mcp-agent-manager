@@ -78,7 +78,7 @@ export default function AgentPanel({ isOpen }: AgentPanelProps) {
     <aside
       className={cn(
         'glass-sidebar flex h-full flex-col p-6 pl-1 pr-1 transition-all duration-300 ease-in-out overflow-hidden',
-        isOpen ? 'w-42 opacity-100' : 'w-0 opacity-0 p-0'
+        isOpen ? 'w-45 opacity-100' : 'w-0 opacity-0 p-0'
       )}
     >
       <div className="mb-6 flex items-center gap-3">

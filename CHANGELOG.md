@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.0.6] - 2024-11-17
+- remove top helper text
+- Added support google antigravity
+- cli version to 0.0.15
+
 ## [0.0.5] - 2024-11-17
 - Added avatar url on server card
 - cli version to 0.0.14
