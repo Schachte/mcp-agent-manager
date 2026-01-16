@@ -1,7 +1,7 @@
 {
   "name": "tuff-mcp-manager",
   "productName": "tuff-mcp-manager",
-  "version": "0.0.7",
+  "version": "1.0.0",
   "description": "A modern desktop application for managing Model Context Protocol (MCP) servers across multiple AI agents",
   "main": ".vite/build/main.js",
   "scripts": {
