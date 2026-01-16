@@ -4,6 +4,12 @@ Multi-agent MCP server manager.
 
 ![Tuff MCP Manager](screenshot.png)
 
+### MCP Marketplace
+
+1-click MCP server installation into your local agents (Claude, Cursor, and more).
+
+![MCP Marketplace](marketplace.png)
+
 ## Build
 
 ```bash
