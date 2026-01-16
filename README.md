@@ -24,6 +24,16 @@ npm install
 npm start
 ```
 
+## Release
+
+To cut a new GitHub release:
+
+```bash
+./release.sh
+```
+
+This will prompt you to select a version bump (patch/minor/major/custom), update `package.json`, commit, tag, and push. GitHub Actions will then build and publish the release artifacts.
+
 ## License
 
 MIT - Based on [mcp-gearbox](https://github.com/rohitsoni007/mcp-gearbox)
