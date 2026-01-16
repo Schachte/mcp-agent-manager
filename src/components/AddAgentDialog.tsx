@@ -91,14 +91,13 @@ export default function AddAgentDialog({
 
     try {
       // Expand ~ to home directory if present
-      let resolvedPath = configPath.trim();
-      if (resolvedPath.startsWith('~')) {
-        // This will be expanded on the backend when reading the file
-        // For now we keep the ~ notation
-      }
+      const resolvedPath = configPath.trim();
 
       const customAgent: CustomAgent = {
-        id: selectedTemplate === 'custom' ? `custom-${Date.now()}` : selectedTemplate,
+        id:
+          selectedTemplate === 'custom'
+            ? `custom-${Date.now()}`
+            : selectedTemplate,
         name: name.trim(),
         configPath: resolvedPath,
         createdAt: Date.now(),
@@ -141,19 +140,27 @@ export default function AddAgentDialog({
         <DialogHeader>
           <DialogTitle>Add Agent</DialogTitle>
           <DialogDescription>
-            Add a new AI agent to manage MCP servers. Select a template or configure a custom agent.
+            Add a new AI agent to manage MCP servers. Select a template or
+            configure a custom agent.
           </DialogDescription>
         </DialogHeader>
         <div className="grid gap-4 py-4">
           <div className="grid gap-2">
             <Label htmlFor="template">Agent Template</Label>
-            <Select value={selectedTemplate} onValueChange={handleTemplateChange}>
+            <Select
+              value={selectedTemplate}
+              onValueChange={handleTemplateChange}
+            >
               <SelectTrigger>
                 <SelectValue placeholder="Select a template" />
               </SelectTrigger>
               <SelectContent>
                 {AGENT_TEMPLATES.map(template => (
-                  <SelectItem key={template.id} value={template.id} className="text-left">
+                  <SelectItem
+                    key={template.id}
+                    value={template.id}
+                    className="text-left"
+                  >
                     <div className="flex flex-col items-start text-left">
                       <span>{template.name}</span>
                       <span className="text-xs text-muted-foreground">
@@ -202,7 +209,11 @@ export default function AddAgentDialog({
           </div>
         </div>
         <DialogFooter>
-          <Button variant="outline" onClick={handleClose} disabled={isSubmitting}>
+          <Button
+            variant="outline"
+            onClick={handleClose}
+            disabled={isSubmitting}
+          >
             Cancel
           </Button>
           <Button onClick={handleSubmit} disabled={isSubmitting}>
