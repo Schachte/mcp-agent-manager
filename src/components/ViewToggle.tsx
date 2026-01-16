@@ -8,28 +8,28 @@ interface ViewToggleProps {
 
 export default function ViewToggle({ view, onViewChange }: ViewToggleProps) {
   return (
-    <div className="glass-card flex items-center gap-1 rounded-xl p-1">
+    <div className="flex items-center border border-border rounded-sm overflow-hidden">
       <button
         onClick={() => onViewChange('grid')}
         className={cn(
-          'flex h-8 w-8 items-center justify-center rounded-lg transition-colors cursor-pointer',
+          'flex h-5 w-5 items-center justify-center transition-colors cursor-pointer',
           view === 'grid'
-            ? 'bg-primary text-primary-foreground'
-            : 'text-muted-foreground hover:text-foreground'
+            ? 'bg-muted-foreground/20 text-foreground'
+            : 'text-muted-foreground hover:text-foreground hover:bg-muted'
         )}
       >
-        <Grid3x3 className="h-4 w-4" />
+        <Grid3x3 className="h-2.5 w-2.5" />
       </button>
       <button
         onClick={() => onViewChange('list')}
         className={cn(
-          'flex h-8 w-8 items-center justify-center rounded-lg transition-colors cursor-pointer',
+          'flex h-5 w-5 items-center justify-center transition-colors cursor-pointer',
           view === 'list'
-            ? 'bg-primary text-primary-foreground'
-            : 'text-muted-foreground hover:text-foreground'
+            ? 'bg-muted-foreground/20 text-foreground'
+            : 'text-muted-foreground hover:text-foreground hover:bg-muted'
         )}
       >
-        <List className="h-4 w-4" />
+        <List className="h-2.5 w-2.5" />
       </button>
     </div>
   );

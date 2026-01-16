@@ -1,8 +1,8 @@
 [Desktop Entry]
 Type=Application
-Name=MCP Gearbox (git)
+Name=Tuff MCP Manager
 Comment=Manage Model Context Protocol servers for multiple AI agents
-Exec=mcp-gearbox %U
-Icon=mcp-gearbox
+Exec=tuff-mcp-manager %U
+Icon=tuff-mcp-manager
 Terminal=false
 Categories=Utility;Development;

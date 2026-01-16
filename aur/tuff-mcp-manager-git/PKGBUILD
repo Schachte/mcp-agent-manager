@@ -1,5 +1,5 @@
-pkgname=mcp-gearbox-git
-_pkgname=mcp-gearbox
+pkgname=tuff-mcp-manager-git
+_pkgname=tuff-mcp-manager
 pkgver=0.0.2.20251112.095801.r0.g460ed4d
 pkgrel=1
 pkgdesc="Modern MCP server manager for multiple AI agents (development snapshot)"
@@ -13,8 +13,8 @@ makedepends=('git' 'nodejs>=18' 'npm' 'python')
 provides=(${_pkgname})
 conflicts=(${_pkgname})
 source=("git+https://github.com/rohitsoni007/${_pkgname}.git"
-        "mcp-gearbox.desktop"
-        "mcp-gearbox.png"
+        "tuff-mcp-manager.desktop"
+        "tuff-mcp-manager.png"
         "LICENSE")
 sha256sums=('SKIP'
             '5781878d4bf298ae7f7d324ae9a52ef6d626014b86fdf31570ce986b9a65d312'
@@ -46,10 +46,10 @@ package() {
 
   install -Dm755 /dev/stdin "${pkgdir}/usr/bin/${_pkgname}" <<'WRAPPER'
 #!/bin/sh
-exec /opt/mcp-gearbox/mcp-gearbox "$@"
+exec /opt/tuff-mcp-manager/tuff-mcp-manager "$@"
 WRAPPER
 
-  install -Dm644 "${srcdir}/mcp-gearbox.desktop" "${pkgdir}/usr/share/applications/mcp-gearbox.desktop"
-  install -Dm644 "${srcdir}/mcp-gearbox.png" "${pkgdir}/usr/share/pixmaps/mcp-gearbox.png"
+  install -Dm644 "${srcdir}/tuff-mcp-manager.desktop" "${pkgdir}/usr/share/applications/tuff-mcp-manager.desktop"
+  install -Dm644 "${srcdir}/tuff-mcp-manager.png" "${pkgdir}/usr/share/pixmaps/tuff-mcp-manager.png"
   install -Dm644 "${srcdir}/LICENSE" "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
 }

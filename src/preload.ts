@@ -11,6 +11,13 @@ const mcpApi: McpIpcApi = {
   installCli: () => ipcRenderer.invoke('mcp:install-cli'),
   selectProjectLocation: () =>
     ipcRenderer.invoke('mcp:select-project-location'),
+  readFile: (filePath: string) =>
+    ipcRenderer.invoke('mcp:read-file', filePath),
+  writeFile: (filePath: string, content: string) =>
+    ipcRenderer.invoke('mcp:write-file', filePath, content),
+  getAppDataPath: () => ipcRenderer.invoke('mcp:get-app-data-path'),
+  selectFile: (options?: { title?: string; filters?: { name: string; extensions: string[] }[] }) =>
+    ipcRenderer.invoke('mcp:select-file', options),
 };
 
 contextBridge.exposeInMainWorld('mcpApi', mcpApi);

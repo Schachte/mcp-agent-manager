@@ -22,3 +22,6 @@ export const selectIsProjectLevelSpecEnabled = (state: RootState) =>
 
 export const selectProjectLocation = (state: RootState) =>
   state.server.projectLocation;
+
+export const selectShowAllServers = (state: RootState) =>
+  state.server.showAllServers;

@@ -19,6 +19,7 @@ interface ServerState {
   lastFetched: number | null;
   isProjectLevelSpecEnabled: boolean;
   projectLocation: string;
+  showAllServers: boolean;
 }
 
 const initialState: ServerState = {
@@ -30,6 +31,7 @@ const initialState: ServerState = {
   lastFetched: null,
   isProjectLevelSpecEnabled: false,
   projectLocation: '',
+  showAllServers: false,
 };
 
 const serverSlice = createSlice({
@@ -81,6 +83,9 @@ const serverSlice = createSlice({
     setProjectLocation: (state, action: PayloadAction<string>) => {
       state.projectLocation = action.payload;
     },
+    setShowAllServers: (state, action: PayloadAction<boolean>) => {
+      state.showAllServers = action.payload;
+    },
   },
 });
 
@@ -96,6 +101,7 @@ export const {
   setSortBy,
   setProjectLevelSpecEnabled,
   setProjectLocation,
+  setShowAllServers,
 } = serverSlice.actions;
 
 export default serverSlice.reducer;

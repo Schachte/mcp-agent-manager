@@ -12,6 +12,7 @@ import {
 import storage from 'redux-persist/lib/storage';
 import agentReducer from './slices/agentSlice';
 import serverReducer from './slices/serverSlice';
+import customAgentReducer from './slices/customAgentSlice';
 
 const serverPersistConfig = {
   key: 'server',
@@ -28,12 +29,13 @@ const persistConfig = {
   key: 'root',
   version: 1,
   storage,
-  whitelist: ['agent', 'server'], // Persist agent and server state
+  whitelist: ['agent', 'server', 'customAgent'], // Persist agent, server, and customAgent state
 };
 
 const rootReducer = combineReducers({
   agent: agentReducer,
   server: serverPersistedReducer,
+  customAgent: customAgentReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

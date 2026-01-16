@@ -1,5 +1,5 @@
-pkgname=mcp-gearbox-bin
-_pkgname=mcp-gearbox
+pkgname=tuff-mcp-manager-bin
+_pkgname=tuff-mcp-manager
 pkgver=0.0.2
 _tag=v0.0.2-20251112-095801
 pkgrel=2
@@ -14,8 +14,8 @@ provides=(${_pkgname})
 conflicts=(${_pkgname})
 options=('!strip')
 source=("${_pkgname}_${pkgver}_amd64.deb::https://github.com/rohitsoni007/${_pkgname}/releases/download/${_tag}/${_pkgname}_${pkgver}_amd64.deb"
-        "mcp-gearbox.desktop"
-        "mcp-gearbox.png"
+        "tuff-mcp-manager.desktop"
+        "tuff-mcp-manager.png"
         "LICENSE")
 sha256sums=('beab004c86db5cbdcc2d8db05eb4e18cf07ca4f4852ef4978496f96d96e46f84'
             '9442af73cae749b3bb09dac6564e440abd1c0f80f8d0410190b08cbde5e767c2'
@@ -38,10 +38,10 @@ package() {
 
   install -Dm755 /dev/stdin "${pkgdir}/usr/bin/${_pkgname}" <<'WRAPPER'
 #!/bin/sh
-exec /usr/lib/mcp-gearbox/mcp-gearbox "$@"
+exec /usr/lib/tuff-mcp-manager/tuff-mcp-manager "$@"
 WRAPPER
 
-  install -Dm644 "${srcdir}/mcp-gearbox.desktop" "${pkgdir}/usr/share/applications/mcp-gearbox.desktop"
-  install -Dm644 "${srcdir}/mcp-gearbox.png" "${pkgdir}/usr/share/pixmaps/mcp-gearbox.png"
+  install -Dm644 "${srcdir}/tuff-mcp-manager.desktop" "${pkgdir}/usr/share/applications/tuff-mcp-manager.desktop"
+  install -Dm644 "${srcdir}/tuff-mcp-manager.png" "${pkgdir}/usr/share/pixmaps/tuff-mcp-manager.png"
   install -Dm644 "${srcdir}/LICENSE" "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
 }

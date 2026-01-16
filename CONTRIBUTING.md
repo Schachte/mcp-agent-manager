@@ -1,6 +1,6 @@
-# Contributing to MCP Gearbox
+# Contributing to Tuff MCP Manager
 
-Thank you for your interest in contributing to MCP Gearbox! We appreciate your help in making this project better.
+Thank you for your interest in contributing to Tuff MCP Manager! We appreciate your help in making this project better.
 
 ## Code of Conduct
 
@@ -27,7 +27,7 @@ Before creating a bug report, please check existing issues to avoid duplicates.
 **Bug**: Server installation fails on Windows 11
 
 **Steps to Reproduce:**
-1. Open MCP Gearbox
+1. Open Tuff MCP Manager
 2. Click "Install" on any server
 3. Error appears
 
@@ -91,11 +91,11 @@ We actively welcome pull requests!
 
 ```bash
 # Clone your fork
-git clone https://github.com/your-username/mcp-gearbox.git
-cd mcp-gearbox
+git clone https://github.com/your-username/tuff-mcp-manager.git
+cd tuff-mcp-manager
 
 # Add upstream remote
-git remote add upstream https://github.com/rohitsoni007/mcp-gearbox.git
+git remote add upstream https://github.com/rohitsoni007/tuff-mcp-manager.git
 
 # Install dependencies
 npm install
@@ -314,4 +314,4 @@ Contributors are recognized in:
 - Release notes
 - Project documentation
 
-Thank you for contributing to MCP Gearbox! 🎉
+Thank you for contributing to Tuff MCP Manager! 🎉

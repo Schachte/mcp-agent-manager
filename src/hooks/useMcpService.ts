@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import {
   McpRendererService,
   McpParsedResult,
@@ -85,7 +85,7 @@ export const useMcpService = () => {
       toast({
         title: 'Installing MCP CLI',
         description:
-          'Installing mcp-gearbox globally. This may take a moment...',
+          'Installing tuff-mcp-manager globally. This may take a moment...',
       });
 
       const result = await McpRendererService.installCli();
@@ -178,7 +178,7 @@ export const useMcpService = () => {
     );
   };
 
-  const getAgents = async (showToast: boolean = true): Promise<AgentData[]> => {
+  const getAgents = useCallback(async (showToast: boolean = true): Promise<AgentData[]> => {
     const result = await executeWithInstallCheck<{ agents: AgentData[] }>(
       () => McpRendererService.getAgents(),
       'Failed to get agents',
@@ -186,9 +186,9 @@ export const useMcpService = () => {
       showToast
     );
     return result?.agents || [];
-  };
+  }, [isInstalled]);
 
-  const getServers = async (
+  const getServers = useCallback(async (
     showToast: boolean = true
   ): Promise<ServerData[] | null> => {
     return executeWithInstallCheck<ServerData[]>(
@@ -197,9 +197,9 @@ export const useMcpService = () => {
       undefined,
       showToast
     );
-  };
+  }, [isInstalled]);
 
-  const getServersByAgent = async (
+  const getServersByAgent = useCallback(async (
     agent: string,
     projectLocation: string | undefined = undefined,
     showToast: boolean = true
@@ -211,9 +211,9 @@ export const useMcpService = () => {
       showToast
     );
     return result?.servers || [];
-  };
+  }, [isInstalled]);
 
-  const addServerByAgent = async (
+  const addServerByAgent = useCallback(async (
     agent: string,
     serverName: string,
     projectLocation?: string,
@@ -229,9 +229,9 @@ export const useMcpService = () => {
       },
       showToast
     );
-  };
+  }, [isInstalled]);
 
-  const removeServerByAgent = async (
+  const removeServerByAgent = useCallback(async (
     serverName: string,
     agent: string,
     projectLocation?: string,
@@ -251,7 +251,7 @@ export const useMcpService = () => {
       },
       showToast
     );
-  };
+  }, [isInstalled]);
 
   useEffect(() => {
     checkInstallation(false); // Don't show toast on initial check

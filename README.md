@@ -1,30 +1,30 @@
-# MCP Gearbox
+# Tuff MCP Manager
 
 > A modern desktop application for managing Model Context Protocol (MCP) servers across multiple AI agents
 
 ## 📸 Screenshot
 
-![MCP Gearbox](media/mcp-gearbox.png)
+![Tuff MCP Manager](media/tuff-mcp-manager.png)
 
-[![Build](https://github.com/rohitsoni007/mcp-gearbox/actions/workflows/build.yml/badge.svg)](https://github.com/rohitsoni007/mcp-gearbox/actions/workflows/build.yml)
+[![Build](https://github.com/rohitsoni007/tuff-mcp-manager/actions/workflows/build.yml/badge.svg)](https://github.com/rohitsoni007/tuff-mcp-manager/actions/workflows/build.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Electron](https://img.shields.io/badge/Electron-39.0.0-47848F?logo=electron)](https://www.electronjs.org/)
 [![React](https://img.shields.io/badge/React-19.2.0-61DAFB?logo=react)](https://reactjs.org/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.9.3-3178C6?logo=typescript)](https://www.typescriptlang.org/)
-[![GitHub Stars](https://img.shields.io/github/stars/rohitsoni007/mcp-gearbox?style=social)](https://github.com/rohitsoni007/mcp-gearbox)
+[![GitHub Stars](https://img.shields.io/github/stars/rohitsoni007/tuff-mcp-manager?style=social)](https://github.com/rohitsoni007/tuff-mcp-manager)
 
 
 ## 📚 Documentation
 
-For detailed usage instructions, please visit our [documentation](https://rohitsoni007.github.io/mcp-gearbox).
+For detailed usage instructions, please visit our [documentation](https://rohitsoni007.github.io/tuff-mcp-manager).
 
-## 🤔 What is MCP Gearbox?
+## 🤔 What is Tuff MCP Manager?
 
-MCP Gearbox is a powerful cross-platform desktop application that simplifies the management of Model Context Protocol (MCP) servers for AI agents like Claude, Kiro, Continue, Copilot, Cursor, Qoder, and others. Built with Electron, React, and TypeScript, this productivity tool provides an intuitive interface to discover, install, configure, and manage MCP servers without touching configuration files. Whether you're a developer, researcher, or AI enthusiast, MCP Gearbox streamlines your workflow with local AI integration and server management capabilities.
+Tuff MCP Manager is a powerful cross-platform desktop application that simplifies the management of Model Context Protocol (MCP) servers for AI agents like Claude, Kiro, Continue, Copilot, Cursor, Qoder, and others. Built with Electron, React, and TypeScript, this productivity tool provides an intuitive interface to discover, install, configure, and manage MCP servers without touching configuration files. Whether you're a developer, researcher, or AI enthusiast, Tuff MCP Manager streamlines your workflow with local AI integration and server management capabilities.
 
 ### Key Features
 
-As a cutting-edge productivity tool for AI development, MCP Gearbox offers:
+As a cutting-edge productivity tool for AI development, Tuff MCP Manager offers:
 
 - **🔍 Server Discovery** - Browse and search through available MCP servers from the community
 - **⚡ One-Click Installation** - Install MCP servers to your AI agents with a single click
@@ -34,11 +34,11 @@ As a cutting-edge productivity tool for AI development, MCP Gearbox offers:
 - **🎨 Modern UI** - Built with shadcn/ui components and Tailwind CSS for a beautiful experience
 - **💾 State Persistence** - Your settings and preferences are saved automatically
 
-These features make MCP Gearbox the ultimate productivity tool for developers working with AI assistants.
+These features make Tuff MCP Manager the ultimate productivity tool for developers working with AI assistants.
 
-## 💡 Why MCP Gearbox?
+## 💡 Why Tuff MCP Manager?
 
-Managing MCP servers manually can be tedious and error-prone. MCP Gearbox eliminates the complexity by offering a code assistant productivity tool that:
+Managing MCP servers manually can be tedious and error-prone. Tuff MCP Manager eliminates the complexity by offering a code assistant productivity tool that:
 
 - Provides a visual interface for server management
 - Automates configuration file updates
@@ -50,7 +50,7 @@ This AI integration tool transforms how developers and researchers work with Mod
 
 ## 💻 Installation
 
-Get started with this AI integration tool in minutes. MCP Gearbox supports all major operating systems.
+Get started with this AI integration tool in minutes. Tuff MCP Manager supports all major operating systems.
 
 ## 🔧 Requirements
 
@@ -63,9 +63,9 @@ Get started with this AI integration tool in minutes. MCP Gearbox supports all m
 
 Get started immediately with our pre-built binaries for maximum convenience:
 
-- **Windows**: `mcp-gearbox-setup.exe`
-- **macOS**: `mcp-gearbox.dmg`
-- **Linux**: `mcp-gearbox.deb` or `mcp-gearbox.rpm`
+- **Windows**: `tuff-mcp-manager-setup.exe`
+- **macOS**: `tuff-mcp-manager.dmg`
+- **Linux**: `tuff-mcp-manager.deb` or `tuff-mcp-manager.rpm`
 
 This cross-platform AI integration tool is ready to enhance your productivity workflow.
 
@@ -75,8 +75,8 @@ Build this productivity tool from source to customize it for your specific needs
 
 ```bash
 # Clone the repository
-git clone https://github.com/rohitsoni007/mcp-gearbox.git
-cd mcp-gearbox
+git clone https://github.com/rohitsoni007/tuff-mcp-manager.git
+cd tuff-mcp-manager
 
 # Install dependencies
 npm install
@@ -88,7 +88,7 @@ npm start
 npm run make
 ```
 
-Building from source gives you the flexibility to extend MCP Gearbox as an AI integration tool.
+Building from source gives you the flexibility to extend Tuff MCP Manager as an AI integration tool.
 
 ## 🎯 Usage
 
@@ -96,7 +96,7 @@ Unlock the full potential of this productivity tool with these simple steps:
 
 ### 🚀 Getting Started
 
-1. **Launch MCP Gearbox** - Open the application
+1. **Launch Tuff MCP Manager** - Open the application
 2. **Check Agent Status** - View which AI agents are installed and configured
 3. **Browse Servers** - Explore available MCP servers
 4. **Install Servers** - Click to add servers to your preferred agents
@@ -112,11 +112,11 @@ Effortlessly control your AI assistant ecosystem with these management features:
 - **Remove a Server**: Navigate to your installed servers and click "Remove"
 - **Enable/Disable**: Toggle servers on or off without uninstalling
 
-This server management capability makes MCP Gearbox the ultimate productivity tool for AI development.
+This server management capability makes Tuff MCP Manager the ultimate productivity tool for AI development.
 
 ### 🤖 Supported AI Agents
 
-MCP Gearbox seamlessly integrates with popular AI code assistants and development tools:
+Tuff MCP Manager seamlessly integrates with popular AI code assistants and development tools:
 
 | Agent | Support | Notes |
 |-------|---------|-------|
@@ -151,7 +151,7 @@ Join us in improving this AI integration tool for the developer community. We us
 Our well-organized codebase follows modern development practices for this productivity tool:
 
 ```
-mcp-gearbox/
+tuff-mcp-manager/
 ├── src/
 │   ├── components/     # React components
 │   ├── hooks/          # Custom React hooks
@@ -167,7 +167,7 @@ mcp-gearbox/
 └── forge.config.ts     # Electron Forge configuration
 ```
 
-This modular structure makes MCP Gearbox easy to understand and extend as an AI integration tool.
+This modular structure makes Tuff MCP Manager easy to understand and extend as an AI integration tool.
 
 ### 📜 Available Scripts
 
@@ -200,13 +200,13 @@ npm run test:e2e
 npm run test:e2e:ui
 ```
 
-Our testing approach ensures MCP Gearbox remains a reliable AI integration tool for developers.
+Our testing approach ensures Tuff MCP Manager remains a reliable AI integration tool for developers.
 
-We follow best practices for testing to ensure MCP Gearbox remains a reliable productivity tool.
+We follow best practices for testing to ensure Tuff MCP Manager remains a reliable productivity tool.
 
 ## 🤝 Contributing
 
-We welcome contributions from the AI development community! Whether you're a seasoned developer or new to AI tools, your input helps make MCP Gearbox better for everyone. Please see our [CONTRIBUTING.md](CONTRIBUTING.md) for details on:
+We welcome contributions from the AI development community! Whether you're a seasoned developer or new to AI tools, your input helps make Tuff MCP Manager better for everyone. Please see our [CONTRIBUTING.md](CONTRIBUTING.md) for details on:
 
 - Code of Conduct
 - Development setup
@@ -218,14 +218,14 @@ Join us in building the ultimate productivity tool for AI assistant management.
 
 ## 📄 License
 
-This open-source productivity tool is licensed under the MIT License - see the [LICENSE](LICENSE) file for details. The permissive MIT license allows you to use, modify, and distribute MCP Gearbox for both personal and commercial projects.
+This open-source productivity tool is licensed under the MIT License - see the [LICENSE](LICENSE) file for details. The permissive MIT license allows you to use, modify, and distribute Tuff MCP Manager for both personal and commercial projects.
 
 ## 💬 Support
 
 Need help with this AI integration tool or have questions about managing MCP servers? We're here to help:
 
-- **Issues**: [GitHub Issues](https://github.com/rohitsoni007/mcp-gearbox/issues) - Report bugs or request features
-- **Discussions**: [GitHub Discussions](https://github.com/rohitsoni007/mcp-gearbox/discussions) - Ask questions and connect with other users
+- **Issues**: [GitHub Issues](https://github.com/rohitsoni007/tuff-mcp-manager/issues) - Report bugs or request features
+- **Discussions**: [GitHub Discussions](https://github.com/rohitsoni007/tuff-mcp-manager/discussions) - Ask questions and connect with other users
 
 As a productivity tool for AI developers, we strive to provide excellent support for our community.
 
@@ -243,9 +243,9 @@ Our future plans for enhancing this AI integration tool include:
 ## 🙏 Acknowledgements
 
 This project is based on the data from [Model Context Protocol Servers](https://github.com/modelcontextprotocol/servers) and [Github MCP Registry](https://github.com/mcp).
-This project uses my other project  [MCP-Gearbox-CLI](https://github.com/rohitsoni007/mcp-gearbox-cli).
+This project uses my other project  [MCP-Gearbox-CLI](https://github.com/rohitsoni007/tuff-mcp-manager-cli).
 
-We're continuously working to improve MCP Gearbox as a productivity tool for the AI development community.
+We're continuously working to improve Tuff MCP Manager as a productivity tool for the AI development community.
 
 ---
 

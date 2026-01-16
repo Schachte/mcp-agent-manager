@@ -21,22 +21,20 @@ export const filterServers = (
 
 export const sortServers = (
   servers: ServerData[],
-  sortBy: string
+  sortBy: string,
+  options?: { preserveConfigOrder?: boolean }
 ): ServerData[] => {
   if (!Array.isArray(servers)) return [];
+
+  // If preserving config order, only filter (no sorting)
+  if (options?.preserveConfigOrder) {
+    return [...servers];
+  }
 
   const serversCopy = [...servers];
 
   return serversCopy.sort((a, b) => {
-    // First, sort by status (isEnabled) - enabled servers first
-    const statusA = a.isEnabled ? 1 : 0;
-    const statusB = b.isEnabled ? 1 : 0;
-
-    if (statusA !== statusB) {
-      return statusB - statusA;
-    }
-
-    // Then sort by the selected key
+    // Sort by the selected key (no longer sorting by enabled status first)
     switch (sortBy) {
       case 'name':
         return a.name.localeCompare(b.name);
@@ -58,12 +56,7 @@ export const formatStars = (count: number): string => {
 export const sortAgents = (agents: AgentData[]): AgentData[] => {
   if (!Array.isArray(agents)) return [];
 
-  return [...agents].sort((a, b) => {
-    if (a.installed === b.installed) {
-      return a.name.localeCompare(b.name);
-    }
-    return a.installed ? -1 : 1;
-  });
+  return [...agents].sort((a, b) => a.name.localeCompare(b.name));
 };
 
 /**

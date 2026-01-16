@@ -10,6 +10,7 @@ export interface Agent {
   install_url: string;
   details: string[];
   active?: boolean;
+  iconUrl?: string; // Optional URL to load favicon/icon from
 }
 
 interface AgentState {

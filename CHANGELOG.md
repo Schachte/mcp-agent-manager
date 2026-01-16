@@ -59,5 +59,5 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - GitHub Actions CI/CD pipeline
 - Cross-platform builds (Windows, macOS, Linux)
 
-[Unreleased]: https://github.com/rohitsoni007/mcp-gearbox/compare/v0.0.1...HEAD
-[0.0.1]: https://github.com/rohitsoni007/mcp-gearbox/releases/tag/v0.0.1
+[Unreleased]: https://github.com/rohitsoni007/tuff-mcp-manager/compare/v0.0.1...HEAD
+[0.0.1]: https://github.com/rohitsoni007/tuff-mcp-manager/releases/tag/v0.0.1

@@ -16,6 +16,7 @@ type ServerCardProps = {
     agent: string,
     projectLocation?: string
   ) => Promise<unknown>;
+  onRefresh?: () => void;
 };
 
 export default function ServerCard({
@@ -24,6 +25,7 @@ export default function ServerCard({
   server,
   addServerByAgent,
   removeServerByAgent,
+  onRefresh,
 }: ServerCardProps) {
   if (view === 'list') {
     return (
@@ -32,6 +34,7 @@ export default function ServerCard({
         server={server}
         addServerByAgent={addServerByAgent}
         removeServerByAgent={removeServerByAgent}
+        onRefresh={onRefresh}
       />
     );
   }
@@ -42,6 +45,7 @@ export default function ServerCard({
       server={server}
       addServerByAgent={addServerByAgent}
       removeServerByAgent={removeServerByAgent}
+      onRefresh={onRefresh}
     />
   );
 }

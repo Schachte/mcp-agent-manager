@@ -15,6 +15,21 @@ export interface McpIpcApi {
     path?: string;
     error?: string;
   }>;
+  readFile: (filePath: string) => Promise<{
+    success: boolean;
+    content?: string;
+    error?: string;
+  }>;
+  writeFile: (filePath: string, content: string) => Promise<{
+    success: boolean;
+    error?: string;
+  }>;
+  getAppDataPath: () => Promise<string>;
+  selectFile: (options?: { title?: string; filters?: { name: string; extensions: string[] }[] }) => Promise<{
+    success: boolean;
+    path?: string;
+    error?: string;
+  }>;
 }
 
 declare global {

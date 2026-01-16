@@ -9,10 +9,12 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { Button } from '@/components/ui/button';
+import { Switch } from '@/components/ui/switch';
+import { Label } from '@/components/ui/label';
 import { useActiveAgent } from '@/hooks/useActiveAgent';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
-import { setSortBy } from '@/store/slices/serverSlice';
-import { selectSortBy } from '@/store/selectors/serverSelectors';
+import { setSortBy, setShowAllServers } from '@/store/slices/serverSlice';
+import { selectSortBy, selectShowAllServers } from '@/store/selectors/serverSelectors';
 import { useMcpService } from '@/hooks/useMcpService';
 import { useEffect, useState } from 'react';
 import { Download, Loader2 } from 'lucide-react';
@@ -27,8 +29,13 @@ export default function Header({ view, setView }: HeaderProps) {
   const dispatch = useAppDispatch();
   const activeAgent = useActiveAgent();
   const reduxSortBy = useAppSelector(selectSortBy);
+  const showAllServers = useAppSelector(selectShowAllServers);
   const [localSortBy, setLocalSortBy] = useState(reduxSortBy);
   const { isInstalled, isInstalling, installCli } = useMcpService();
+
+  const handleShowAllToggle = (checked: boolean) => {
+    dispatch(setShowAllServers(checked));
+  };
 
   // Sync local state with Redux state
   useEffect(() => {
@@ -49,54 +56,60 @@ export default function Header({ view, setView }: HeaderProps) {
   };
 
   return (
-    <header className="border-b border-border p-5 pb-2 pt-2">
-      <div className="mb-2 flex items-start justify-between">
-        <div>
-          <div className="flex items-center gap-2 mb-2">
-            <AgentIcon agent={activeAgent} />
-            <h1 className="text-3xl font-bold tracking-tight">
-              {activeAgent?.name || 'MCP'}
-            </h1>
-          </div>
+    <header className="border-b border-border px-3 py-1.5">
+      <div className="flex items-center justify-between gap-4">
+        <div className="flex items-center gap-2 min-w-0">
+          <AgentIcon agent={activeAgent} className="h-4 w-4 shrink-0" />
+          <h1 className="text-xs font-semibold truncate">
+            {activeAgent?.name || 'MCP'}
+          </h1>
         </div>
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-1.5 flex-1 justify-end">
           {!isInstalled && !activeAgent && (
             <Button
               onClick={installCli}
               disabled={isInstalling}
               variant="default"
               size="sm"
+              className="h-6 text-[10px] rounded-none px-2"
             >
               {isInstalling ? (
                 <>
-                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                  <Loader2 className="mr-1 h-3 w-3 animate-spin" />
                   Installing...
                 </>
               ) : (
                 <>
-                  <Download className="mr-2 h-4 w-4" />
-                  Install MCP CLI
+                  <Download className="mr-1 h-3 w-3" />
+                  Install CLI
                 </>
               )}
             </Button>
           )}
-          <div className="flex items-center gap-2 text-sm">
-            <span className="text-muted-foreground">Sort by:</span>
-            <Select value={localSortBy} onValueChange={handleSortChange}>
-              <SelectTrigger className="glass-card h-10 w-40 border-0 cursor-pointer">
-                <SelectValue />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="stars">Stars</SelectItem>
-                <SelectItem value="name">Name</SelectItem>
-              </SelectContent>
-            </Select>
+          <SearchBar className="flex-1" />
+          <Select value={localSortBy} onValueChange={handleSortChange}>
+            <SelectTrigger className="h-6 w-20 text-[10px] rounded-none">
+              <SelectValue />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="stars">Stars</SelectItem>
+              <SelectItem value="name">Name</SelectItem>
+            </SelectContent>
+          </Select>
+          <div className="flex items-center gap-1.5">
+            <Switch
+              id="show-all"
+              checked={showAllServers}
+              onCheckedChange={handleShowAllToggle}
+            />
+            <Label htmlFor="show-all" className="text-[10px] text-muted-foreground cursor-pointer">
+              All
+            </Label>
           </div>
           <ViewToggle view={view} onViewChange={setView} />
           <ThemeToggle />
         </div>
       </div>
-      <SearchBar />
     </header>
   );
 }
