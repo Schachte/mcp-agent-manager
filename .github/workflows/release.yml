@@ -21,9 +21,6 @@ jobs:
       - name: Install dependencies
         run: npm install --ignore-scripts
 
-      - name: Rebuild native modules
-        run: npm rebuild
-
       - name: Setup macOS certificate
         env:
           APPLE_CERTIFICATE: ${{ secrets.APPLE_CERTIFICATE }}
