@@ -20,4 +20,4 @@ npm start
 
 ## License
 
-MIT - Based on [tuff-mcp-manager](https://github.com/rohitsoni007/tuff-mcp-manager)
+MIT - Based on [mcp-gearbox](https://github.com/rohitsoni007/mcp-gearbox)
